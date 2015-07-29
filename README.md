@@ -1,9 +1,11 @@
 genc
-=============
+=======
+
+[![Build Status](https://travis-ci.org/shiva/genc.svg?branch=master)](https://travis-ci.org/shiva/genc)
+[![Coverage Status](https://coveralls.io/repos/shiva/genc/badge.svg?branch=master&service=github)](https://coveralls.io/github/shiva/genc?branch=master)
 
 # Description
-
-Generates C code based on provided headers
+Generates C code from provided headers
 
 # Usage
 
