@@ -1,11 +1,11 @@
 module.exports = function (program) {
     'use strict';
 
-    var default_input = __dirname + '/../etc/kgNOzO2Y.json';
+    var default_input = __dirname + '/../etc/sample1.h';
 
     program
         .option('-i, --input [file]',
-                'input json file exported from trello [etc/kgNOzO2Y.json]',
+                'input header file [etc/sample1.h]',
                 String, default_input)
         .option('-o, --output [file]', 'output file to write to')
         ;
