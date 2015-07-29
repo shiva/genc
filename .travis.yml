@@ -10,3 +10,13 @@ cache:
     - node_modules
 notifications:
   slack: friedsilicon:3GVMf1aqtsnaV8Hrc9FIB28X
+
+before_script:
+  - npm install -g istanbul
+  - npm install -g codeclimate-test-reporter
+script:
+  - npm run-script coverage
+after_success:
+  - npm run-script codeclimate
+  - npm run-script coveralls
+  - npm run-script clean-coverage
