@@ -4,6 +4,7 @@
 'use strict';
 
 var libclang = require('libclang');
+var utils = require('../lib/utils.js')
 
 module.exports = function(program) {
 
@@ -31,27 +32,37 @@ module.exports = function(program) {
 
 
 			tu.cursor.visitChildren(function (parent) {
+				var ret = Cursor.Recurse;
+
 				if (this.kind != Cursor.MacroDefinition &&
 					this.kind != Cursor.MacroInstantiation &&
 					this.kind != Cursor.LastProcessing) {
+					console.log("");
 					console.log(consts.CXCursorKind[this.kind], this.spelling);
 				}
 
 				switch (this.kind) {
 					case Cursor.LastPreprocessing:
-						return Cursor.Break;
+						ret = Cursor.Break;
 						break;
-					case Cursor.Namespace:
-					case Cursor.ClassDecl:
-					case Cursor.FunctionDecl:
-					case Cursor.FunctionTemplate:
-					case Cursor.EnumDecl:
-						return Cursor.Recurse;
+					case Cursor.StructDecl:
+						utils.print_alloc(this.spelling);
+						utils.print_dealloc(this.spelling);
+						break;
+					case Cursor.TypedefDecl:
+						console.log(this.typedefType.declaration.spelling);
+						break;
+					case Cursor.FieldDecl:
+						if (parent.kind == Cursor.StructDecl) {
+							utils.print_accessor(parent.spelling, this.spelling, this.type.spelling);
+							utils.print_mutator(parent.spelling, this.spelling, this.type.spelling);
+						}
 						break;
 					default:
-						return Cursor.Continue;
+						ret = Cursor.Continue;
 						break;
 				}
+				return ret;
 			});
 
 			index.dispose();
