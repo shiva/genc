@@ -13,9 +13,6 @@ module.exports = function(program) {
     .version('0.0.1')
     .description('Generate accessors for the specified type')
     .action(function(type) {
-
-
-
 			console.log("input: ", program.input);
 			console.log("type: ", type);
 
@@ -29,7 +26,6 @@ module.exports = function(program) {
 
 			var index = new Index(true, true);
 			var tu = new TranslationUnit.fromSource(index, program.input, []);
-
 
 			tu.cursor.visitChildren(function (parent) {
 				var ret = Cursor.Recurse;
@@ -66,6 +62,5 @@ module.exports = function(program) {
 			});
 
 			index.dispose();
-			//tu.dispose();
     });
 };
